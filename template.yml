@@ -50,7 +50,7 @@ Resources:
             Name: start_intances_schedule
             Description: hora de iniciar el trabajar
             Enabled: True
-  HelloWorld:
+  stopInstances:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "stop_instances"
