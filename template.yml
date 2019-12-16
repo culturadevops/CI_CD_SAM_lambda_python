@@ -45,7 +45,7 @@ Resources:
             Method: get
         PostEvent:
         Type: Schedule
-          Properties:
+        Properties:
             Schedule: "cron(0 12 * * ? *)"
             Name: start_intances_schedule
             Description: hora de iniciar el trabajar
