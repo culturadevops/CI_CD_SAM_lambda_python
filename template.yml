@@ -44,7 +44,7 @@ Resources:
             Path: /
             Method: get
         PostEvent:
-         Type: Schedule
+          Type: Schedule
           Properties:
             Schedule: "cron(0 12 * * ? *)"
             Name: start_intances_schedule
