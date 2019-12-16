@@ -27,7 +27,11 @@ Resources:
   HelloWorld:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
+      FunctionName: "start_instances"
+      MemorySize: 128
+      Timeout: 3
+      CodeUri: "./"
+      Handler: start.lambda_handler
       Runtime: python3.7
       Role:
         Fn::GetAtt:
@@ -40,10 +44,12 @@ Resources:
             Path: /
             Method: get
         PostEvent:
-          Type: Api
+         Type: Schedule
           Properties:
-            Path: /
-            Method: post
+            Schedule: "cron(0 12 * * ? *)"
+            Name: start_intances_schedule
+            Description: hora de iniciar el trabajar
+            Enabled: True
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
@@ -57,5 +63,5 @@ Resources:
           Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+        - arn:aws:iam::aws:policy/AWSLambdaFullAccess
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
