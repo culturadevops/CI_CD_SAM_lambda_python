@@ -44,8 +44,8 @@ Resources:
             Path: /start
             Method: get
         PostEvent:
-        Type: Schedule
-        Properties:
+          Type: Schedule
+          Properties:
             Schedule: "cron(0 12 * * ? *)"
             Name: start_intances_schedule
             Description: hora de iniciar el trabajar
@@ -70,7 +70,7 @@ Resources:
             Path: /stop
             Method: get
         PostEvent:
-        Type: Schedule
+          Type: Schedule
           Properties:
             Schedule: "cron(0 15 * * ? *)"
             Name: stop_intances_schedule
