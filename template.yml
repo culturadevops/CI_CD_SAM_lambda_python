@@ -41,15 +41,42 @@ Resources:
         GetEvent:
           Type: Api
           Properties:
-            Path: /
+            Path: /start
             Method: get
         PostEvent:
-          Type: Schedule
+        Type: Schedule
           Properties:
             Schedule: "cron(0 12 * * ? *)"
             Name: start_intances_schedule
             Description: hora de iniciar el trabajar
             Enabled: True
+  HelloWorld:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "stop_instances"
+      MemorySize: 128
+      Timeout: 3
+      CodeUri: "./"
+      Handler: stop.lambda_handler
+      Runtime: python3.7
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /stop
+            Method: get
+        PostEvent:
+        Type: Schedule
+          Properties:
+            Schedule: "cron(0 15 * * ? *)"
+            Name: stop_intances_schedule
+            Description: hora de iniciar el trabajar
+            Enabled: True
+  
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
